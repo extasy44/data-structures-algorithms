@@ -106,6 +106,44 @@ class LinkedList {
 
     return null;
   }
+
+  removeAt(index) {
+    if (!this.head) {
+      return;
+    }
+
+    if (index === 0) {
+      this.head = this.head.next;
+    }
+
+    const previous = this.getAt(index - 1);
+    if (!previous || !previous.next) {
+      return;
+    }
+    previous.next = previous.next.next;
+  }
+
+  insertAt(data, index) {
+    if (!this.head) {
+      return;
+    }
+
+    if (index === 0) {
+      this.head = new Node(data, this.head);
+    }
+
+    const previous = this.getAt(index - 1);
+    const node = new Node(data, previous.next);
+    previous.next = node;
+  }
+
+  *[Symbol.iterator]() {
+    let node = this.head;
+    while (node) {
+      yield node;
+      node = node.next;
+    }
+  }
 }
 
 const list = new LinkedList();
